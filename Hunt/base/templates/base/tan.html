@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Alternation</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        #color-div {
+            width: 100%;
+            height: 100%;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="color-div"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var colorDiv = document.getElementById('color-div');
+            var intervalId;
+            var speed = 1000; // Initial speed (1 second)
+
+            function toggleColor() {
+                if (colorDiv.style.backgroundColor === 'red') {
+                    colorDiv.style.backgroundColor = 'green';
+                } else {
+                    colorDiv.style.backgroundColor = 'red';
+                }
+            }
+
+            function increaseSpeed() {
+                clearInterval(intervalId);
+                speed = Math.max(50, speed - 50); // Decrease speed by 50ms, with a minimum of 50ms
+                intervalId = setInterval(toggleColor, speed);
+            }
+
+            // Start color alternation
+            intervalId = setInterval(toggleColor, speed);
+
+            // Increase speed gradually
+            var speedIntervalId = setInterval(increaseSpeed, 1000); // Increase speed every second
+
+            // After 20 seconds, stagnate to red color
+            setTimeout(function() {
+                clearInterval(intervalId); // Clear color alternation interval
+                clearInterval(speedIntervalId); // Clear speed increase interval
+                // Check if the user follows storyline 1
+
+                    colorDiv.style.backgroundColor = "{{ color }}";
+                    setTimeout(function() {
+                        window.location.href = '/clue/';
+                    }, 10000);
+            }, 20000);
+        });
+    </script>
+</body>
+</html>
