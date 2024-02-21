@@ -1,23 +1,25 @@
 <!-- template.html -->
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup</title>
-{% load static %}
+
+
     <style>
         @font-face {
             font-family: "FiraCode-Retina";
-            src: url("../../static/base/fonts/Death Note.ttf") format("truetype");
+            src: url("{% static 'fonts/Death Note.ttf' %}") format("truetype");
         }
         @font-face {
             font-family: "logo";
-            src: url("../../static/base/fonts/CloisterBlack.ttf") format("truetype");
+            src: url("{% static 'fonts/CloisterBlack.ttf' %}") format("truetype");
         }
         @font-face {
             font-family: "death";
-            src: url("../../static/base/fonts/death-font.ttf") format("truetype");
+            src: url(" {% static 'fonts/death-font.ttf' %}") format("truetype");
         }
         body{
             background-color:#010101;
@@ -99,12 +101,9 @@
             justify-content: center;
             align-content: center;
         }
-        .cont {
-            display:flex;
-            flex-direction: row;
-            width:100%;
-        }
+
     </style>
+    <link rel="stylesheet" href="{% static 'CSS/main.css' %}">
 </head>
 <body>
     <h2 class="logo">ACM <br> thapar</h2>
@@ -114,6 +113,8 @@
             <h1 class="text">Sign Up</h1>
             <hr class="line2">
         </div>
+        <img src="{% static 'img/deathnote.png' %}">
+
 <div class="form-container">
         <form method="post">
             {% csrf_token %}
