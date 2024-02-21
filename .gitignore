@@ -1,0 +1,46 @@
+# Django-related files
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+
+# Media files
+media/
+
+# Static files
+staticfiles/
+
+# Database
+db.sqlite3
+
+# Virtual environment
+venv/
+.env
+
+# IDE-specific files
+.vscode/
+.idea/
+.idea
+
+# Compiled Python files
+*.pyc
+
+# Dependency directories
+node_modules/
+bower_components/
+
+# Compiled sass files
+*.css
+
+# Temporary files
+*.swp
+*.swo
+
+# Mac-specific files
+.DS_Store
+
+# Windows-specific files
+Thumbs.db
+
+.venv
