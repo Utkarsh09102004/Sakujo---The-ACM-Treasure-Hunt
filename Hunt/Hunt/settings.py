@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-sdq!nnz9t_&rtbl^8_u#31a*yq0b_85jc@o-l3r$xa#njc4xdv
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost","192.168.29.17","127.0.0.1"]
+ALLOWED_HOSTS = ["localhost","192.168.228.17","127.0.0.1"]
 
 
 # Application definition
@@ -76,12 +76,18 @@ WSGI_APPLICATION = 'Hunt.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'treasureHunt',
+        'USER': 'postgres',
+        'PASSWORD': 'Utkarsh',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
+import os
+STATIC_URL = '/static/'
 
-
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -103,7 +109,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

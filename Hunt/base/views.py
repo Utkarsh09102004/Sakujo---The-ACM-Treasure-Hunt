@@ -6,6 +6,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from .algos import *
 from .models import *
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+import random
 from django.contrib import messages
 
 
@@ -42,29 +44,43 @@ def login_view(request):
         form = AuthenticationForm()
     return render(request, 'base/login_user.html', {'form': form})
 
+def account_view(request):
+    return render(request, 'base/account.html')
+
+@login_required(login_url='account')
 def jcteam(request):
     return render(request, 'base/team.html')
 
+@login_required(login_url='account')
 def create_team(request):
-    sec_code=generate_random_string(8)
-    users=request.user.userprofile
-
+    sec_code = generate_random_string(8)
+    users = request.user.userprofile
     if request.method == 'POST':
         team_name = request.POST.get('teamName')
-        print(team_name)
+        # storyline_name = random.choice(["story-1", "story-2"])  # Randomly select a storyline
+        storyline_name="story-1"
         team = Team.objects.create(name=team_name, sec_code=sec_code)
+        storyline = Storyline.objects.get(name=storyline_name)
+        if storyline_name == "story-1":
+            clue_id = 1
+        else:
+            clue_id = 8
+        clue = Clue.objects.get(id=clue_id)
+
+        team.current_clue = clue
+        team.storyline = storyline
+        team.save()
+
         users.team = team
         users.save()
         return redirect('team-details')
-
 
     context={'sec_code':sec_code}
     return render(request, 'base/create_team.html',context)
 
 from django.contrib import messages
-from django.shortcuts import render, redirect
-from .models import Team
 
+@login_required(login_url='account')
 def join_team(request):
     user_profile = request.user.userprofile
 
@@ -82,7 +98,7 @@ def join_team(request):
             return redirect('team-details')
 
     return render(request, 'base/join_team.html')
-
+@login_required(login_url='account')
 def clue_render(request):
     team =request.user.userprofile.team
     clues=team.current_clue
@@ -101,20 +117,18 @@ def clue_render(request):
 
     context = {'clue':clues}
     return render(request, 'base/clue.html', context)
+@login_required(login_url='account')
 def team_details(request):
     team=request.user.userprofile.team
     members= UserProfile.objects.filter(team=team)
     context={'team': team , 'members': members}
     return render(request, 'base/team_details.html',context)
-
+@login_required(login_url='account')
 def tan_exp(request):
     story=request.user.userprofile.team.storyline.name
-
     if (story == "story-1"):
         color="red"
     else:
         color="green"
-
     context={'color':color}
-
     return render(request, 'base/tan.html', context)
