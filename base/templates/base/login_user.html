@@ -1,17 +1,139 @@
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <!-- CSS only -->
+    <style>
+        @font-face {
+            font-family: "FiraCode-Retina";
+            src: url("{% static 'fonts/Death Note.ttf' %}") format("truetype");
+        }
+        @font-face {
+            font-family: "logo";
+            src: url("{% static 'fonts/CloisterBlack.ttf' %}") format("truetype");
+        }
+        @font-face {
+            font-family: "death";
+            src: url(" {% static 'fonts/death-font.ttf' %}") format("truetype");
+        }
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        .container{
+            background: url("{% static 'img/signup_bg.png' %}"), lightgray 50% / cover no-repeat;
+            background-color: black;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+            height: 100vh;
+        }
+        h1,h2{
+            color:#DDDFE1;
+        }
+        .logo{
+            width: 90%;
+            font-family: 'logo';
+            justify-content: space-between;
+            display: flex;
+        }
+        .section{
+            display: flex;
+            align-items: center;
+            margin: 0;
+            width: 90%;
+            font-family: "FiraCode-Retina", sans-serif;
+        }
+        .outerline{
+			background: #DDDFE1;
+			width: 28%;
+		}
+		.innerline{
+			display:block;
+			background-color: hsl(210, 6.25%, 87.45%);
+			height: 2px;
+			width: 2px;
+			transform: rotate(45deg);
+		}
+        .form-container{
+            width: 90%;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+        .formm{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .form-group{
+            margin-bottom: 1.5em;
+            display: flex;
+            flex-direction: column;
+            width: 95%;
+        }
+        .custom-label {
+            margin:0;
+            font-size: 1em;
+            font-family: "death", sans-serif;
+            color:#DDDFE1;
+        }
+        .custom-input{
+	    background: radial-gradient(ellipse, rgba(164,160,170,0.8),rgba(164,160,170,0));
+    	height: 1.75em;
+    	text-align: center;
+    	border: 0;
+    	border-radius: 5px;
+    	font-family: "FiraCode-Retina", sans-serif;
+        color: #DDDFE1;
+        font-size: 1.5625em;
+}
+        .btn{
+            margin-top: 1em;
+            background: radial-gradient(ellipse, rgba(164,160,170,0.8),rgba(164,160,170,0));
+            width:4em;
+            height:2em;
+            border:0px;
+            border-radius:5px;
+            color:#DDDFE1;
+            font-family: "FiraCode-Retina", sans-serif;
+            font-size:1.5em;
+        }
+    </style>
 </head>
 <body>
-    <h2>Login</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Login</button>
-    </form>
+    <div class="container">
+        <div class="logo">
+            <h2>ACM <br> thapar</h2>
+            <h2>Eclipse <br> phase-1</h2>
+        </div>
+        <img class="skull" src="{% static 'img/deathnote.png' %}">
+        <div class="section">
+			<hr class="outerline">
+			<hr class="innerline">
+			<h1>Log In</h1>
+			<hr class="innerline">
+			<hr class="outerline">
+		</div>
+        <div class="form-container">
+            <form class="formm" method="post">
+                {% csrf_token %}
+                    <p class="form-group">
+                        <label class="custom-label" for="id_username">username:</label>
+                        <input class="custom-input" type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username">
+                    </p>
+                    <p class="form-group">
+                        <label class="custom-label" for="id_password">password:</label>
+                        <input class="custom-input" type="password" name="password" autocomplete="current-password" required id="id_password">
+                    </p>
+                <button class="btn" type="submit">Login</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

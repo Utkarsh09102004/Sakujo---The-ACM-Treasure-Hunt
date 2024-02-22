@@ -166,11 +166,30 @@ def betrayal(request):
             next= Clue.objects.filter(id=7).first()
             teams.current_clue= next
             teams.save()
-            return redirect('kataa')
+            return JsonResponse({'redirect': '/bet-game/'})
+
         else:
             return redirect('clue');
     return render(request, 'base/betrayal.html')
 
+@csrf_exempt
+def centerGame(request):
+    team = request.user.userprofile.team
+    clues = team.current_clue
+    newid = clues.id + 1
+    newClue =Clue.objects.filter(id=newid).first()
+    if (request.method=='POST'):
+        deCode = request.POST.get('success')
+
+
+
+        # Assuming you're sending a JSON object with a key 'success'
+        if deCode:
+            team.current_clue = newClue
+            team.save()
+            return JsonResponse({'redirect': '/clue/'})
+
+    return render(request, 'base/center_game.html')
 
 def betpage(request):
     teams = request.user.userprofile.team

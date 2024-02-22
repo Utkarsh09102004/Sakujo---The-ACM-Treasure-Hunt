@@ -1,144 +1,311 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        /* style.css file */
-        body {
-            display: flex;
-            justify-content: center;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            box-sizing: border-box;
-            text-align: center;
-            background: rgb(128 0 0 / 66%);
-        }
-        .container {
-            width: 100%;
-            max-width: 500px;
-            margin: 5px;
-        }
 
-        .container h1 {
-            color: #ffffff;
-        }
-
-        .section {
-            background-color: #ffffff;
-            padding: 50px 30px;
-            border: 1.5px solid #b2b2b2;
-            border-radius: 0.25em;
-            box-shadow: 0 20px 25px rgba(0, 0, 0, 0.25);
-        }
-
-        #my-qr-reader {
-            padding: 20px !important;
-            border: 1.5px solid #b2b2b2 !important;
-            border-radius: 8px;
-        }
-
-        #my-qr-reader img[alt="Info icon"] {
-            display: none;
-        }
-
-        #my-qr-reader img[alt="Camera based scan"] {
-            width: 100px !important;
-            height: 100px !important;
-        }
-
-        button {
-            padding: 10px 20px;
-            border: 1px solid #b2b2b2;
-            outline: none;
-            border-radius: 0.25em;
-            color: white;
-            font-size: 15px;
-            cursor: pointer;
-            margin-top: 15px;
-            margin-bottom: 10px;
-            background-color: #008000ad;
-            transition: 0.3s background-color;
-        }
-
-        button:hover {
-            background-color: #008000;
-        }
-
-        #html5-qrcode-anchor-scan-type-change {
-            text-decoration: none !important;
-            color: #1d9bf0;
-        }
-
-        video {
-            width: 100% !important;
-            border: 1px solid #b2b2b2 !important;
-            border-radius: 0.25em;
-        }
-    </style>
 </head>
-<body>
-    <div>
-        {{ clue.name }}
-        {{ clue.description }}
-    </div>
-    <div class="container">
-        <h1>Scan QR Codes</h1>
-        <div class="section">
+<style>
+    @font-face {
+        font-family: "FiraCode-Retina";
+        src: url("{% static 'fonts/Death Note.ttf' %} ") format("truetype");
+    }
 
-            <div id="my-qr-reader"></div>
+    @font-face {
+        font-family: "logo";
+
+        src: url("{% static 'fonts/CloisterBlack.ttf' %}") format("truetype");
+    }
+
+    @font-face {
+        font-family: "death";
+
+        src: url("{% static 'fonts/death-font.ttf' %}") format("truetype");
+    }
+
+    @font-face {
+        font-family:"PP Eiko";
+        src: url("{% static 'fonts/PPEiko-Thin.otf' %}") format("truetype");
+    }
+
+    @font-face {
+        font-family: "blood";
+
+        src: url("{% static 'fonts/bloodcrowc.ttf' %}") format("truetype");
+    }
+
+
+    /* style.css file */
+    .main {
+        height: 100vh;
+        width: 100%;
+        overflow: scroll;
+        background: url("{% static 'img/image 23.png' %}"),
+        lightgray 50% / cover no-repeat;
+        background-color: black;
+    }
+
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 5%;
+        min-height: 10vh;
+    }
+
+    .navbar>img {
+        height: 2.5rem;
+    }
+
+    .modal {
+        display: none;
+        /* Hidden by default */
+        position: fixed;
+        /* Stay in place */
+        z-index: 1;
+        /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%;
+        /* Full width */
+        height: 100%;
+        /* Full height */
+        overflow: auto;
+        /* Enable scroll if needed */
+        background-color: rgb(0, 0, 0);
+        /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4);
+        /* Black w/ opacity */
+    }
+
+    /* Modal Content/Box */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        /* Could be more or less, depending on screen size */
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+
+    #myBtn {
+        background-color: transparent !important;
+        border: none;
+    }
+
+
+    #my-qr-reader {
+        padding: 20px !important;
+        border: 1.5px solid #b2b2b2 !important;
+        border-radius: 8px;
+    }
+
+    .cluecontent {
+        color: #DDDFE1;
+        padding-inline: 5%;
+        text-align: center;
+        font-family: "PP Eiko";
+        font-size: 1.5rem;
+        font-style: normal;
+        font-weight: 100;
+        line-height: normal;
+        margin-bottom: 20px;
+
+
+    }
+
+    #my-qr-reader img[alt="Info icon"] {
+        display: none;
+    }
+
+    #my-qr-reader img[alt="Camera based scan"] {
+        width: 100px !important;
+        height: 100px !important;
+    }
+
+    button {
+        padding: 10px 20px;
+        border: 1px solid #b2b2b2;
+        outline: none;
+        border-radius: 0.25em;
+        color: white;
+        font-size: 15px;
+        cursor: pointer;
+        margin-top: 15px;
+        margin-bottom: 10px;
+        background-color: #008000ad;
+        transition: 0.3s background-color;
+    }
+
+    button:hover {
+        background-color: #008000;
+    }
+
+    #html5-qrcode-anchor-scan-type-change {
+        text-decoration: none !important;
+        color: #1d9bf0;
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .heading1 {
+        margin-top: 1rem;
+        font-family: "FiraCode-Retina", sans-serif;
+        color: #B5021E;
+        text-align: center;
+        font-size: 2.0625rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        letter-spacing: 0.165rem;
+    }
+
+    .navbar h2 {
+        font-family: "blood";
+        color: white;
+        padding-left: 20px;
+    }
+
+    .section {
+        margin-block: 1rem 2rem;
+    }
+</style>
+
+<body>
+    <div class="main">
+        <div class="navbar">
+            <img src="{% static 'img/acm thapar.png' %}" alt="">
+            <h2>SAKUJA</h2>
+            <img src="{% static 'img/acm thapar2.png' %}" alt="">
+        </div>
+        <div class="container">
+            <h1 class="heading1">CLUE</h1>
+
+            <div class="section">
+                <div id="myModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <div id="my-qr-reader"></div>
+                    </div>
+                </div>
+
+                <button id="myBtn"> <img src="{% static 'img/QRcode.png'%}" alt=""></button>
+            </div>
+            <div class="cluecontent">
+                {{ clue.description }}
+                <br>
+                <br>
+                {{ clue.location }}
+            </div>
         </div>
     </div>
 
- <script src="https://unpkg.com/html5-qrcode"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script>
-    // script.js file
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
 
-    function domReady(fn) {
-        if (
-            document.readyState === "complete" ||
-            document.readyState === "interactive"
-        ) {
-            setTimeout(fn, 1000);
-        } else {
-            document.addEventListener("DOMContentLoaded", fn);
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function () {
+        modal.style.display = "block";
+        startQRCodeScanner();
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+        stopQRCodeScanner();
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+            stopQRCodeScanner();
         }
     }
 
-    domReady(function () {
-        // If found your QR code
-        function onScanSuccess(decodeText, decodeResult) {
-            // Send decoded data to Django backend using AJAX
-            $.ajax({
-                type: "POST",
-                url: "/clue/",
-                data: {
-                    decodedData: decodeText
-                },
-                beforeSend: function(xhr, settings) {
-                    xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-                },
-                success: function (response) {
-                    // Handle success response from backend
-                    window.location.href = response.redirect;
-                    console.log(response);
-                },
-                error: function (xhr, status, error) {
-                    // Handle error response
-                    console.error(xhr.responseText);
-                }
-            });
-        }
+    let htmlscanner;
 
-        let htmlscanner = new Html5QrcodeScanner(
+    function startQRCodeScanner() {
+        // Initialize the QR code scanner
+        htmlscanner = new Html5QrcodeScanner(
             "my-qr-reader",
             { fps: 10, qrbos: 250 }
         );
         htmlscanner.render(onScanSuccess);
-    });
+    }
+
+    function stopQRCodeScanner() {
+        // Stop the QR code scanner
+        if (htmlscanner) {
+            htmlscanner.clear();
+            htmlscanner.stop();
+        }
+    }
+
+    // If found your QR code
+    function onScanSuccess(decodeText, decodeResult) {
+        // Send decoded data to Django backend using AJAX
+        $.ajax({
+            type: "POST",
+            url: "/clue/",
+            data: {
+                decodedData: decodeText
+            },
+            beforeSend: function (xhr, settings) {
+                xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+            },
+            success: function (response) {
+                // Handle success response from backend
+                window.location.href = response.redirect;
+                console.log(response);
+            },
+            error: function (xhr, status, error) {
+                // Handle error response
+                console.error(xhr.responseText);
+            }
+        });
+    }
 
     function getCookie(name) {
         var cookieValue = null;
@@ -157,5 +324,7 @@
     }
 </script>
 
+
 </body>
+
 </html>
