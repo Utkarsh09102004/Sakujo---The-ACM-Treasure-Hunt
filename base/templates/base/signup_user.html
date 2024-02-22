@@ -21,24 +21,45 @@
             font-family: "death";
             src: url(" {% static 'fonts/death-font.ttf' %}") format("truetype");
         }
+        .mainn{
+            background: url("{% static 'img/signup_bg.png' %}"), lightgray 50% / cover no-repeat;
+            background-color: black;
+        }
         body{
             background-color:#010101;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
         }
         h1,h2{
             color:#DDDFE1;
         }
-        .logo{
-            margin:0 15% 0 5%;
-            font-family: 'logo';
+        .cont{
+            display: flex;
         }
-        /* .container{
-            text-align: center;
-
-        } */
+        .logo{
+            margin:0 auto;
+            width: 90%;
+            font-family: 'logo';
+            justify-content: space-between;
+            display: flex;
+        }
+        .formm{
+            width: 100%;
+        }
+        .form-group{
+            margin-bottom: 1.5em;
+        }
+        .container{
+            width:90%;
+            display: flex;
+            flex-direction: column;
+            margin: 0 auto;
+        }
         .title{
             display: flex;
             align-items: center;
-            margin:2% 0;
+            margin: 0;
             font-family: "FiraCode-Retina", sans-serif;
         }
         .line1{
@@ -51,24 +72,20 @@
             flex:1;
             margin:0 5% 0 15%;
         }
-        .form-control {
-             background: radial-gradient(ellipse, rgba(98,89,91,0.8),rgba(98,89,91,0));
-            margin:1% 15% 5% 5%;
+        .form-control{
+            background: radial-gradient(ellipse, rgba(98,89,91,0.8),rgba(98,89,91,0));
             border-radius:5px;
             border:0;
-
-            width:100%;
+            width:98%;
             height:2.2em;
             border-radius:5px;
             font-family: "FiraCode-Retina", sans-serif;
            color: #DDDFE1;
             font-size: 25px;
             text-align:center;
-
         }
         .custom-label {
-
-            margin:1% 15% 1% 5%;
+            margin:0;
             font-family: "death", sans-serif;
             color:#86767F;
         }
@@ -76,7 +93,6 @@
             display:flex;
             align-items: center;
             justify-content: center;
-
         }
         #roll-no {
             width:90%;
@@ -95,28 +111,36 @@
             font-size:1.5em;
         }
         .form-container {
-            width:90%;
-            diplay:flex;
+            width:100%;
+            display:flex;
             align-items: center;
             justify-content: center;
             align-content: center;
+        }
+        .skull{
+            width: 30%;
+            align-self: center;
         }
 
     </style>
     <link rel="stylesheet" href="{% static 'CSS/main.css' %}">
 </head>
 <body>
-    <h2 class="logo">ACM <br> thapar</h2>
+    <div class="mainn">
+        <div class="logo">
+            <h2>ACM <br> thapar</h2>
+            <h2>Eclipse <br> phase-1</h2>
+        </div>
     <div class="container">
         <div class="title">
             <hr class="line1">
             <h1 class="text">Sign Up</h1>
             <hr class="line2">
         </div>
-        <img src="{% static 'img/deathnote.png' %}">
+        <img class="skull" src="{% static 'img/deathnote.png' %}">
 
 <div class="form-container">
-        <form method="post">
+        <form class="formm" method="post">
             {% csrf_token %}
             <div class="form-group">
                 <label for="{{ form.name.id_for_label }}" class="custom-label">NAME</label>
@@ -124,17 +148,17 @@
                 {{ form.name }}
             </div>
             <div class="cont">
-            <div class="form-group">
-                <label for="{{ form.roll_no.id_for_label }}" class="custom-label">Roll No</label>
-                <br>
-                {{ form.roll_no }}
-            </div>
-              <div class="form-group">
-                <label for="{{ form.phone_no.id_for_label }}" class="custom-label">PHONE NO</label>
-                <br>
-                {{ form.phone_no }}
-            </div>
+                <div class="form-group">
+                    <label for="{{ form.roll_no.id_for_label }}" class="custom-label">Roll No</label>
+                    <br>
+                    {{ form.roll_no }}
                 </div>
+                <div class="form-group">
+                    <label for="{{ form.phone_no.id_for_label }}" class="custom-label">PHONE NO</label>
+                    <br>
+                    {{ form.phone_no }}
+                </div>
+            </div>
             <div class="form-group">
                 <label for="{{ form.email.id_for_label }}" class="custom-label">EMAIL</label>
                 <br>
@@ -163,5 +187,6 @@
         </form>
     </div>
     </div>
+</div>
 </body>
 </html>
