@@ -31,7 +31,7 @@ node_modules/
 bower_components/
 
 # Compiled sass files
-*.css
+
 
 # Temporary files
 *.swp
