@@ -105,6 +105,10 @@ def clue_render(request):
     if request.method == 'POST':
         deCode = request.POST.get('decodedData')
         print(deCode)
+        if (clues.id == 6 and deCode == 'betrayal' ):
+            print('chal lode')
+            return JsonResponse({'redirect': '/bet-game/'})
+
         if (clues.id == 7 and deCode == "final"):
             print('rand')
             return JsonResponse({'redirect': '/final/'})
@@ -120,6 +124,7 @@ def clue_render(request):
 
     context = {'clue':clues}
     return render(request, 'base/clue.html', context)
+
 @login_required(login_url='account')
 def team_details(request):
     team=request.user.userprofile.team
@@ -148,3 +153,25 @@ def final(request):
             print('yay!')
 
     return render(request, 'base/name_game.html')
+@csrf_exempt
+def betrayal(request):
+    teams=request.user.userprofile.team
+    status=teams.status
+    if (request.method=='POST'):
+        if status is None:
+            teams.status = 'betrayed'
+            teams.save()
+            next= Clue.objects.filter(id=7).first()
+            teams.current_clue= next
+            teams.save()
+            return redirect('kataa')
+        else:
+            return redirect('clue');
+    return render(request, 'base/betrayal.html')
+
+
+def betpage(request):
+    teams = request.user.userprofile.team
+    status = teams.status
+    context = {'status':status}
+    return render(request, 'base/bet-followup.html', context)

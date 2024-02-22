@@ -14,6 +14,8 @@ urlpatterns = [
     path('clue/', clue_render, name='clue'),
     path('tan/', tan_exp, name='tan'),
     path('final/', final, name='final'),
+    path('bet-game/', betrayal, name='betrayal'),
+    path('bet-followup/', betpage,name='kataa'),
 
 ]
 if settings.DEBUG:

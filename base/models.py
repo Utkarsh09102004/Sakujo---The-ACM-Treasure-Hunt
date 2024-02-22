@@ -6,6 +6,8 @@ class Team(models.Model):
     current_clue = models.ForeignKey('Clue', on_delete=models.SET_NULL, null=True, blank=True)
     sec_code = models.CharField(max_length=8)
     storyline = models.ForeignKey('Storyline', on_delete=models.SET_NULL, null=True, blank=True)
+    status = models.CharField(max_length=10, blank=True, null=True)
+
 
     def __str__(self):
         return self.name
@@ -41,6 +43,24 @@ class Storyline(models.Model):
 
     def __str__(self):
         return self.name
+
+
+from django.db import models
+
+from django.db import models
+
+
+# class Betrayal(models.Model):
+#     BETRAYAL_CHOICES = [
+#         ('betrayed', 'Betrayed'),
+#         ('loyal', 'Loyal'),
+#     ]
+#
+#     team = models.OneToOneField('Team', on_delete=models.CASCADE, related_name='betrayal')
+#     status = models.CharField(max_length=10, choices=BETRAYAL_CHOICES, default=None, blank=True)
+#
+#     def __str__(self):
+#         return f"{self.team.name} - {self.get_status_display()}"
 
 
 class Minigame(models.Model):
