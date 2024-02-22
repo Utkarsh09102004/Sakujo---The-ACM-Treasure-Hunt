@@ -16,17 +16,19 @@ class SignUpForm(UserCreationForm):
         model = User
         fields = ('name', 'roll_no', 'email', 'phone_no', 'branch', 'password1', 'password2')
 
-
     def save(self, commit=True):
         user = super().save(commit=False)
         user.username = self.cleaned_data['roll_no']  # Assign roll_no as username
         user.email = self.cleaned_data['email']
-        if commit:
-            user.save()
-            UserProfile.objects.create(
-                user=user,
-                roll_no=self.cleaned_data['roll_no'],
-                phone_no=self.cleaned_data['phone_no'],
-                branch=self.cleaned_data['branch']
-            )
+        user.save()
+
+        # Create UserProfile
+        UserProfile.objects.create(
+            user=user,
+            roll_no=self.cleaned_data['roll_no'],
+            phone_no=self.cleaned_data['phone_no'],
+            branch=self.cleaned_data['branch'],
+            full_name=self.cleaned_data['name']  # Save the name field into the full_name field of UserProfile
+        )
+
         return user

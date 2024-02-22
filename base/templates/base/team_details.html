@@ -1,20 +1,165 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Team Details</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>TeamDetails</title>
+	<style>
+		 @font-face {
+            font-family: "FiraCode-Retina";
+            src: url("{% static 'fonts/Death Note.ttf' %}") format("truetype");
+        }
+        @font-face {
+            font-family: "logo";
+            src: url("{% static 'fonts/CloisterBlack.ttf' %}") format("truetype");
+        }
+        @font-face {
+            font-family: "death";
+            src: url(" {% static 'fonts/death-font.ttf' %}") format("truetype");
+        }
+		body{
+			margin: 0;
+			padding: 0;
+		}
+		.container{
+			background: linear-gradient(rgba(0, 0, 0, 0.82),rgba(0, 0, 0, 0.82)), url("{% static 'img/image 23.png' %}");
+			width:100%;
+			display:flex;
+			flex-direction:column;
+			height: 100vh;
+			align-items: center;
+		}
+		.section{
+			color: #DDDFE1;
+			display: flex;
+			height: min-content;
+			width: 90%;
+			justify-content: space-between;
+		}
+		.section2{
+			display: flex;
+			align-items: baseline;
+			width: 90%;
+			height: min-content;
+			margin-top:50px;
+		}
+		.section2 h3{
+			color: #B5021E;
+		}
+		.outerline{
+			background: #DDDFE1;
+			width: 20%;
+		}
+		.innerline{
+			display:block;
+			background-color: hsl(210, 6.25%, 87.45%);
+			height: 2px;
+			width: 2px;
+			transform: rotate(45deg);
+		}
+		.section3{
+			margin-top: 30px;
+			color: #DDDFE1;
+			display: flex;
+			width: 85%;
+			align-items: flex-start;
+		}
+    .nav {
+        display:flex;
+        flex-direction:row;
+        height:15vh;
+        align-items:center;
+        justify-content:space-between;
+        color:#DDDFE1;
+		width:100%;
+    }
+        .logo{
+
+            font-family: 'logo';
+            font-size:18px;
+            margin-left:15px;
+        }
+        .ecl {
+                        font-family: 'logo';
+            font-size:18px;
+            margin-right:15px;
+
+        }
+        .heading {
+            font-family:'death';
+            font-size:60px;
+        }
+        .logo div {
+            font-size:9.5px;
+        }
+        .ecl div {font-size: 9.5px;}
+		.mem-cont{
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			width:95%;
+			font-family: "FiraCode-Retina", sans-serif;
+			color:#DDDFE1;
+		}
+		.mem-but {
+            background: radial-gradient(ellipse, rgba(98,89,91,0.8),rgba(98,89,91,0));
+            border-radius:5px;
+			width: 85%;
+			height: 25px;
+			border: none;
+			border-radius: 5px;
+			padding: 10px;
+			margin-bottom: 20px;
+			 display:flex;
+            align-items: center;
+            justify-content: center;
+		}
+		.section2 h3{
+			font-family: "FiraCode-Retina", sans-serif;
+			color: #B5021E;
+			text-shadow:
+        0px 0px 2px #DDDFE1, /* Red shadow */
+        -2px -2px 3px #B5021E, /* Blue shadow */
+			0px 0px 4px #BA5757;
+
+		}
+		.section3 h3 {
+			font-family: "FiraCode-Retina", sans-serif;
+
+		}
+
+	</style>
 </head>
 <body>
-    <h1>Team Details</h1>
-    <h2>Team: {{ team.name }}</h2>
-    <h2>Code: {{team.sec_code}}</h2>
-
-    <h3>Members:</h3>
-    <ul>
-        {% for member in members %}
-        <li>{{ member.user.username }}</li>
+	<div class="container">
+		<div class="nav">
+        <h2 class="logo">ACM <div>thapar</div></h2>
+        <div class="heading">
+            Sakujo
+        </div>
+        <div class="ecl">
+            Eclipse
+            <div>
+            phase-1</div>
+        </div>
+    </div>
+		<div class="section2">
+			<hr class="outerline">
+			<hr class="innerline">
+			<h3>{{ team.name }}<br>{{team.sec_code}}</h3>
+			<hr class="innerline">
+			<hr class="outerline">
+		</div>
+		<div class="section3">
+			<h3>MEMBERS</h3>
+		</div>
+		<div class="mem-cont">
+		{% for member in members %}
+        <div class="mem-but">{{ member.full_name }}</div>
         {% endfor %}
-    </ul>
+	</div>
+
+	</div>
 </body>
 </html>

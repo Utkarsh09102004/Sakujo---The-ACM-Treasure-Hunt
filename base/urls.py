@@ -11,8 +11,9 @@ urlpatterns = [
     path('team/', jcteam, name='team'),
     path('join-team/' , join_team, name='join-team'),
     path('create-team/', create_team, name='create-team'),
-    path('clue/', clue_render,name='clue'),
-    path('tan/', tan_exp, name='tan')
+    path('clue/', clue_render, name='clue'),
+    path('tan/', tan_exp, name='tan'),
+    path('final/', final, name='final'),
 
 ]
 if settings.DEBUG:

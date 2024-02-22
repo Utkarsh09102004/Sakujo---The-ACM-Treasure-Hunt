@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Add styling if needed */
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        #imageContainer {
+            margin-top: 20px;
+        }
+
+        .character {
+            cursor: pointer;
+            margin: 20px;
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            border: 1px solid #000;
+            border-radius: 50%;
+            background-color: #fff;
+            font-size: 20px;
+        }
+
+        .clickedCharacter {
+            background-color: #ccc;
+        }
+
+        #clickedOrderText {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+    <title>Character Order Validation</title>
+</head>
+
+<body>
+
+    <h2>Click the characters</h2>
+
+    <div id="imageContainer">
+        <div class="character" data-order="1" onclick="checkOrder(1)">A</div>
+        <div class="character" data-order="2" onclick="checkOrder(2)">B</div>
+        <div class="character" data-order="3" onclick="checkOrder(3)">C</div>
+        <div class="character" data-order="4" onclick="checkOrder(4)">D</div>
+        <div class="character" data-order="5" onclick="checkOrder(5)">E</div>
+        <div class="character" data-order="6" onclick="checkOrder(6)">F</div>
+        <div class="character" data-order="7" onclick="checkOrder(7)">G</div>
+    </div>
+
+    <p id="clickedOrderText">Clicked Order: </p>
+
+    <script>
+        let correctOrder = [1, 2, 3, 4, 5, 6, 7];
+        let clickedOrder = [];
+
+        function checkOrder(order) {
+            clickedOrder.push(order);
+            document.getElementById("clickedOrderText").textContent = "Clicked Order: " + clickedOrder.join(", ");
+
+            if (arraysEqual(clickedOrder, correctOrder)) {
+                alert("Congratulations! You clicked all characters in the correct order!");
+                sendSuccessRequest(); // Send POST request
+                clickedOrder = [];
+                document.getElementById("clickedOrderText").textContent = "Clicked Order: ";
+            } else if (clickedOrder.length === correctOrder.length) {
+                alert("Wrong order. Please click in the correct sequence.");
+                resetCharacterContainer();
+                clickedOrder = [];
+                document.getElementById("clickedOrderText").textContent = "Clicked Order: ";
+            } else {
+                // Remove clicked character from initial container
+                let clickedCharacter = document.querySelector('.character[data-order="' + order + '"]');
+                clickedCharacter.parentNode.removeChild(clickedCharacter);
+
+                // Display clicked characters
+                displayClickedCharacters();
+            }
+        }
+
+        function resetCharacterContainer() {
+            let characterContainer = document.getElementById("imageContainer");
+            characterContainer.innerHTML = ""; // Clear previous content
+
+            // Re-append all characters
+            let characters = ["A", "B", "C", "D", "E", "F", "G"];
+            characters.forEach((char, index) => {
+                let div = document.createElement("div");
+                div.className = "character";
+                div.textContent = char;
+                div.setAttribute("data-order", index + 1);
+                div.setAttribute("onclick", "checkOrder(" + (index + 1) + ")");
+                characterContainer.appendChild(div);
+            });
+        }
+
+        function displayClickedCharacters() {
+            let newContainer = document.getElementById("newContainer");
+            if (newContainer) {
+                newContainer.parentNode.removeChild(newContainer);
+            }
+
+            newContainer = document.createElement("div");
+            newContainer.id = "newContainer";
+            document.body.appendChild(newContainer);
+
+            clickedOrder.forEach(order => {
+                let div = document.createElement("div");
+                div.textContent = String.fromCharCode(64 + order); // Convert order to ASCII character
+                div.className = "clickedCharacter";
+                newContainer.appendChild(div);
+            });
+        }
+
+        function arraysEqual(arr1, arr2) {
+            return JSON.stringify(arr1) === JSON.stringify(arr2);
+        }
+
+        function sendSuccessRequest() {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "/final/", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        console.log("Success response from server:", xhr.responseText);
+                    } else {
+                        console.error("Error response from server:", xhr.status);
+                    }
+                }
+            };
+            xhr.send(JSON.stringify({ success: true }));
+        }
+    </script>
+
+</body>
+
+</html>

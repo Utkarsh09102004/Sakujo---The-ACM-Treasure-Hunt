@@ -105,8 +105,13 @@ def clue_render(request):
     if request.method == 'POST':
         deCode = request.POST.get('decodedData')
         print(deCode)
+        if (clues.id == 7 and deCode == "final"):
+            print('rand')
+            return JsonResponse({'redirect': '/final/'})
+
         deClue = Clue.objects.filter(code=deCode).first()
         print(deClue.id)
+
         if (deClue.id == (clues.id + 1)):
             print('chl')
             team.current_clue = deClue
@@ -130,3 +135,16 @@ def tan_exp(request):
         color="green"
     context={'color':color}
     return render(request, 'base/tan.html', context)
+
+import json
+
+from django.views.decorators.csrf import csrf_exempt
+@csrf_exempt
+def final(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        success = data.get('success', False)  # Assuming you're sending a JSON object with a key 'success'
+        if success:
+            print('yay!')
+
+    return render(request, 'base/name_game.html')
