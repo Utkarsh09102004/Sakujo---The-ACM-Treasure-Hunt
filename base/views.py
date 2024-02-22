@@ -7,6 +7,7 @@ from .algos import *
 from .models import *
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 import random
 from django.contrib import messages
 
@@ -144,7 +145,7 @@ def tan_exp(request):
 
 import json
 
-from django.views.decorators.csrf import csrf_exempt
+
 @csrf_exempt
 def final(request):
     if request.method == 'POST':
