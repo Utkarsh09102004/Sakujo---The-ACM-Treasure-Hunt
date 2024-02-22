@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    #quizContainer {
+      margin-top: 20px;
+    }
+
+    #questionImage {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .optionButton {
+      margin: 10px;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .optionButton:hover {
+      background-color: #2980b9;
+    }
+
+    #resultMessage {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+  <title>Simple Quiz App</title>
+</head>
+<body>
+
+  <div id="quizContainer">
+    <div id="questionImageContainer">
+      <img id="questionImage" src="question1.jpg" alt="Question Image">
+    </div>
+    <button class="optionButton" onclick="checkAnswer(true)">True</button>
+    <button class="optionButton" onclick="checkAnswer(false)">False</button>
+  </div>
+
+  <div id="resultMessage"></div>
+
+  <script>
+    let score = 0;
+    const threshold = 2;
+    const questions = [
+      { image: 'question1.jpg', answer: true },
+      { image: 'question2.jpg', answer: false },
+      { image: 'question3.jpg', answer: true }
+    ];
+
+    let currentQuestionIndex = 0;
+
+    function displayQuestion() {
+      const currentQuestion = questions[currentQuestionIndex];
+      document.getElementById("questionImage").src = currentQuestion.image;
+    }
+
+    function checkAnswer(userAnswer) {
+      const currentQuestion = questions[currentQuestionIndex];
+
+      if (userAnswer === currentQuestion.answer) {
+        score++;
+      }
+
+      currentQuestionIndex++;
+
+      if (currentQuestionIndex < questions.length) {
+        displayQuestion();
+      } else {
+        displayResult();
+      }
+    }
+
+    function resetGame() {
+      score = 0;
+      currentQuestionIndex = 0;
+      displayQuestion();
+      document.getElementById("resultMessage").textContent = "";
+    }
+
+    function displayResult() {
+      const resultMessage = document.getElementById("resultMessage");
+      resultMessage.textContent = `Your score: ${score}/${questions.length}`;
+
+      if (score >= threshold) {
+        resultMessage.style.color = 'green';
+        resultMessage.textContent += ' - Success!';
+        sendSuccessRequest();
+      } else {
+        resultMessage.style.color = 'red';
+        resultMessage.textContent += ' - Failure!';
+        setTimeout(resetGame, 2000); // Reset the game after 2 seconds
+      }
+    }
+
+    displayQuestion();
+    function sendSuccessRequest() {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "/name-game/", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        console.log("Success response from server:", xhr.responseText);
+                    } else {
+                        console.error("Error response from server:", xhr.status);
+                    }
+                }
+            };
+            xhr.send(JSON.stringify({ success: true }));
+        }
+  </script>
+
+</body>
+</html>

@@ -97,6 +97,7 @@ def join_team(request):
 
     return render(request, 'base/join_team.html')
 @login_required(login_url='account')
+@csrf_exempt
 def clue_render(request):
     team =request.user.userprofile.team
     clues=team.current_clue
