@@ -2,6 +2,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,180 +14,206 @@
             font-family: "FiraCode-Retina";
             src: url("{% static 'fonts/Death Note.ttf' %}") format("truetype");
         }
+
         @font-face {
             font-family: "logo";
             src: url("{% static 'fonts/CloisterBlack.ttf' %}") format("truetype");
         }
+
         @font-face {
             font-family: "death";
             src: url(" {% static 'fonts/death-font.ttf' %}") format("truetype");
         }
-        .mainn{
-            background: url("{% static 'img/signup_bg.png' %}"), lightgray 50% / cover no-repeat;
+
+        .mainn {
+            background: url("{% static 'img/signup_bg.png' %}"),
+            lightgray 50% / cover;
+            width: 100%;
             background-color: black;
         }
-        body{
-            background-color:#010101;
+
+        body {
+            background-color: #010101;
             display: flex;
             align-items: center;
             flex-direction: column;
         }
-        h1,h2{
-            color:#DDDFE1;
+
+        h1,
+        h2 {
+            color: #DDDFE1;
         }
-        .cont{
+
+        .cont {
             display: flex;
         }
-        .logo{
-            margin:0 auto;
+
+        .logo {
+            margin: 0 auto;
             width: 90%;
             font-family: 'logo';
             justify-content: space-between;
             display: flex;
         }
-        .formm{
+
+        .formm {
             width: 100%;
         }
-        .form-group{
+
+        .form-group {
             margin-bottom: 1.5em;
         }
-        .container{
-            width:90%;
+
+        .container {
+            width: 90%;
             display: flex;
             flex-direction: column;
             margin: 0 auto;
         }
-        .title{
+
+        .title {
             display: flex;
             align-items: center;
             margin: 0;
             font-family: "FiraCode-Retina", sans-serif;
         }
-        .line1{
-            display:inline-block;
-            flex:1;
-            margin:0 15% 0 5%;
+
+        .line1 {
+            display: inline-block;
+            flex: 1;
+            margin: 0 15% 0 5%;
         }
-        .line2{
-            display:inline-block;
-            flex:1;
-            margin:0 5% 0 15%;
+
+        .line2 {
+            display: inline-block;
+            flex: 1;
+            margin: 0 5% 0 15%;
         }
-        .form-control{
-            background: radial-gradient(ellipse, rgba(98,89,91,0.8),rgba(98,89,91,0));
-            border-radius:5px;
-            border:0;
-            width:98%;
-            height:2.2em;
-            border-radius:5px;
+
+        .form-control {
+            background: radial-gradient(ellipse, rgba(98, 89, 91, 0.8), rgba(98, 89, 91, 0));
+            border-radius: 5px;
+            border: 0;
+            width: 98%;
+            height: 2.2em;
+            border-radius: 5px;
             font-family: "FiraCode-Retina", sans-serif;
-           color: #DDDFE1;
+            color: #DDDFE1;
             font-size: 25px;
-            text-align:center;
+            text-align: center;
         }
+
         .custom-label {
-            margin:0;
+            margin: 0;
             font-family: "death", sans-serif;
-            color:#86767F;
+            color: #86767F;
         }
-        .button{
-            display:flex;
+
+        .button {
+            display: flex;
             align-items: center;
             justify-content: center;
         }
+
         #roll-no {
-            width:90%;
+            width: 90%;
         }
+
         #phone-no {
-            width:100%;
+            width: 100%;
         }
-        button{
-             background: radial-gradient(ellipse, rgba(164,160,170,0.8),rgba(164,160,170,0));
-            width:120px;
-            height:60px;
-            border:0px;
-            border-radius:5px;
-            color:white;
+
+        button {
+            background: radial-gradient(ellipse, rgba(164, 160, 170, 0.8), rgba(164, 160, 170, 0));
+            width: 120px;
+            height: 60px;
+            border: 0px;
+            border-radius: 5px;
+            color: white;
             font-family: "FiraCode-Retina", sans-serif;
-            font-size:1.5em;
+            font-size: 1.5em;
         }
+
         .form-container {
-            width:100%;
-            display:flex;
+            width: 100%;
+            display: flex;
             align-items: center;
             justify-content: center;
             align-content: center;
         }
-        .skull{
-            width: 30%;
+
+        .skull {
+            width: clamp(4rem, 6.5vw, 6rem);
             align-self: center;
         }
-
     </style>
     <link rel="stylesheet" href="{% static 'CSS/main.css' %}">
 </head>
+
 <body>
     <div class="mainn">
         <div class="logo">
             <h2>ACM <br> thapar</h2>
             <h2>Eclipse <br> phase-1</h2>
         </div>
-    <div class="container">
-        <div class="title">
-            <hr class="line1">
-            <h1 class="text">Sign Up</h1>
-            <hr class="line2">
+        <div class="container">
+            <img class="skull" src="{% static 'img/deathnote.png' %}">
+            <div class="title">
+                <hr class="line1">
+                <h1 class="text">Sign Up</h1>
+                <hr class="line2">
+            </div>
+
+
+            <div class="form-container">
+                <form class="formm" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="{{ form.name.id_for_label }}" class="custom-label">Name</label>
+                        <br>
+                        {{ form.name }}
+                    </div>
+                    <div class="cont">
+                        <div class="form-group">
+                            <label for="{{ form.roll_no.id_for_label }}" class="custom-label">Roll No</label>
+                            <br>
+                            {{ form.roll_no }}
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ form.phone_no.id_for_label }}" class="custom-label">Phone No</label>
+                            <br>
+                            {{ form.phone_no }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ form.email.id_for_label }}" class="custom-label">Email</label>
+                        <br>
+                        {{ form.email }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.branch.id_for_label }}" class="custom-label">Branch</label>
+                        <br>
+                        {{ form.branch }}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ form.password1.id_for_label }}" class="custom-label">Password</label>
+                        <br>
+                        {{ form.password1 }}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ form.password2.id_for_label }}" class="custom-label">Confirm Password</label>
+                        <br>
+                        {{ form.password2}}
+                    </div>
+                    <div class="button">
+                        <button type="submit">SUBMIT</button>
+                    </div>
+
+                </form>
+            </div>
         </div>
-        <img class="skull" src="{% static 'img/deathnote.png' %}">
-
-<div class="form-container">
-        <form class="formm" method="post">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="{{ form.name.id_for_label }}" class="custom-label">NAME</label>
-                <br>
-                {{ form.name }}
-            </div>
-            <div class="cont">
-                <div class="form-group">
-                    <label for="{{ form.roll_no.id_for_label }}" class="custom-label">Roll No</label>
-                    <br>
-                    {{ form.roll_no }}
-                </div>
-                <div class="form-group">
-                    <label for="{{ form.phone_no.id_for_label }}" class="custom-label">PHONE NO</label>
-                    <br>
-                    {{ form.phone_no }}
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="{{ form.email.id_for_label }}" class="custom-label">EMAIL</label>
-                <br>
-                {{ form.email }}
-            </div>
-
-            <div class="form-group">
-                <label for="{{ form.branch.id_for_label }}" class="custom-label">BRANCH</label>
-                <br>
-                {{ form.branch }}
-            </div>
-            <div class="form-group">
-                <label for="{{ form.password1.id_for_label }}" class="custom-label">PASSWORD</label>
-                <br>
-                {{ form.password1 }}
-            </div>
-            <div class="form-group">
-                <label for="{{ form.password2.id_for_label }}" class="custom-label">CONFIRM PASSWORD</label>
-                <br>
-                {{ form.password2}}
-            </div>
-            <div class="button">
-                <button type="submit">SUBMIT</button>
-            </div>
-
-        </form>
     </div>
-    </div>
-</div>
 </body>
+
 </html>
