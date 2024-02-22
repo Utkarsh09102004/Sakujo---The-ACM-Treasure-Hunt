@@ -1,116 +1,42 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Team Page</title>
 </head>
+<link rel="stylesheet" href="{% static 'css/home.css'   %}">
 <style>
-      @font-face {
-            font-family: "FiraCode-Retina";
-            src: url("../../static/base/fonts/Death Note.ttf") format("truetype");
-        }
-        @font-face {
-            font-family: "logo";
-            src: url("../../static/base/fonts/CloisterBlack.ttf") format("truetype");
-        }
-        @font-face {
-            font-family: "death";
-            src: url("../../static/base/fonts/death-font.ttf") format("truetype");
-        }
-    .nav {
-        display:flex;
-        flex-direction:row;
-        height:10vh;
-        align-items:center;
-        justify-content:space-between;
-        color:#DDDFE1;
-    }
-        .logo{
 
-            font-family: 'logo';
-            font-size:40px;
-            margin-left:15px;
-        }
-        .ecl {
-                        font-family: 'logo';
-            font-size:40px;
-            margin-right:15px;
-
-        }
-        .heading {
-            font-family:'death';
-            font-size:100px;
-        }
-        .logo div {
-            font-size:25px;
-        }
-        .ecl div {font-size: 25px;}
-
-
-    .container {
-        width:100%;
-        height:80vh;
-        display:flex;
-        justify-items: center;
-        justify-content: center;
-        align-items: center;
-        flex-direction:column;
-    }
-       .button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-           width:80%;
-    }
-    button,
-    .button a {
-        background: radial-gradient(ellipse, rgba(164, 160, 170, 0.8), rgba(164, 160, 170, 0));
-        width: 100%;
-        height: 130px;
-        margin:10px;
-        border: 0px;
-        border-radius: 5px;
-        color: #DDDFE1;
-        font-family: "FiraCode-Retina", sans-serif;
-        font-size: 3.5em;
-        text-decoration: none; /* Remove underline from anchor tags */
-        display: flex; /* Added */
-        align-items: center; /* Added */
-        justify-content: center; /* Added */
-    }
-    body{
-            background-color:#010101;
-        }
-    .text {
-        font-family: "FiraCode-Retina", sans-serif;
-        color:#DDDFE1;
-        font-size:70px;
-        text-align:center;
-        margin-bottom:120px;
-    margin-top:-120px;}
 </style>
+
 <body>
-    <div class="nav">
-        <h2 class="logo">ACM <div>thapar</div></h2>
-        <div class="heading">
-            Sakujo
+    <div class="main">
+        <div class="navbar">
+            <img src="{% static 'img/acm thapar.png' %}" alt="">
+            <img src="{% static 'img/acm thapar2.png' %}" alt="">
         </div>
-        <div class="ecl">
-            Eclipse
+        <div class="content">
+            <div><img src="{% static 'img/deathnote.png' %}" alt="">
+                <h1>SAKUJA</h1>
+                <h2>HUMANS ARE SO INTERESTING</h2>
+            </div>
             <div>
-            phase-1</div>
+                <div class="buttons">
+                    <button>
+                        <a href="{% url 'logins' %}">Login</a>
+                    </button>
+                    <button>
+                        <a href="{% url 'signups' %}">Sign Up</a>
+                    </button>
+                </div>
+
+                <p>AT YOUR OWN RISK</p>
+            </div>
         </div>
     </div>
-    <div class="container">
-        <div class="text">
-            Humans are so interesting.
-        </div>
-    <div class="button">
-        <a href="{% url 'signups' %}">Sign Up</a>
-    </div>
-    <div class="button">
-        <a href="{% url 'logins' %}">Login</a>
-    </div>
-</div>
 </body>
+
 </html>
