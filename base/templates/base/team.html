@@ -7,7 +7,82 @@
     <title>Team Page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<link rel="stylesheet" href="{% static 'css/team.css' %}">
+<style>
+    @font-face {
+    font-family: "FiraCode-Retina";
+    src: url("{% static 'fonts/Death Note.tff' %} ") format("truetype");
+}
+
+@font-face {
+    font-family: "logo";
+
+    src: url("{% static 'fonts/CloisterBlack.ttf' %}") format("truetype");
+}
+
+@font-face {
+    font-family: "death";
+
+    src: url("{% static 'fonts/death-font.ttf' %}") format("truetype");
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "FiraCode-Retina", sans-serif;
+
+}
+
+.main{
+    background: url("{% static 'img/image 23' %}"), lightgray 50% / cover no-repeat;
+    background-color: black;
+    height: 100vh;
+
+}
+
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%;
+    min-height: 10vh;
+}
+.navbar h2{
+    font-family: "logo";
+    color: white;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-direction: column;
+    padding: 0 5%;
+    min-height: 90vh;
+}
+.container h3{
+    font-family: "firaCode-Retina";
+    color: white;
+    font-size: clamp(1.5rem,4vw ,3rem);
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.container button{
+    padding: 0.875rem 0rem;
+    width: 20.375rem;
+    margin-bottom: 20px;
+    font-size: 1rem;
+    background: radial-gradient(81.25% 81.25% at 50% 50%, rgba(164, 160, 170, 0.80) 0%, rgba(164, 160, 170, 0.00) 100%);
+    border-radius: 0.625rem;
+}
+
+.container button a{
+    text-decoration: none;
+    color: white;
+}
+</style>
 
 <body>
     <div class="main">
