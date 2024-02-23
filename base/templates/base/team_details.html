@@ -128,6 +128,19 @@
 			font-family: "FiraCode-Retina", sans-serif;
 
 		}
+		 button{
+    padding: 0.875rem 0rem;
+    width: 20.375rem;
+    margin-bottom: 20px;
+    font-size: 1rem;
+    background: radial-gradient(81.25% 81.25% at 50% 50%, rgba(164, 160, 170, 0.80) 0%, rgba(164, 160, 170, 0.00) 100%);
+    border-radius: 0.625rem;
+}
+
+ button a{
+    text-decoration: none;
+    color: white;
+}
 
 	</style>
 </head>
@@ -158,8 +171,9 @@
 		{% for member in members %}
         <div class="mem-but">{{ member.full_name }}</div>
         {% endfor %}
-	</div>
-
-	</div>
+<!--	<button>-->
+<!--                <a href="{% url 'tan' %}">Start</a>-->
+<!--            </button>-->
+		</div>
 </body>
 </html>
