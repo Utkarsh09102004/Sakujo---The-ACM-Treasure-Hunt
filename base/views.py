@@ -147,6 +147,7 @@ def clue_render(request):
             return JsonResponse({'redirect': '/final/'})
 
         deClue = Clue.objects.filter(code=deCode).first()
+
         print(deClue.id)
 
         if (deClue.id == (clues.id + 1)):
@@ -182,7 +183,7 @@ def final(request):
         data = json.loads(request.body)
         success = data.get('success', False)  # Assuming you're sending a JSON object with a key 'success'
         if success:
-            return redirect('csed')
+            return JsonResponse({'redirect': '/csed/'})
 
     return render(request, 'base/name_game.html')
 @csrf_exempt
