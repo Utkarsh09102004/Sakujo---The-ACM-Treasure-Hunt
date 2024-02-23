@@ -93,7 +93,7 @@ def join_team(request):
 
         if team is None:
             messages.warning(request, "Incorrect code")
-        elif team.userprofile_set.count() >= 3:  # Check if the team is full (more than or equal to 5 members)
+        elif team.userprofile_set.count() >= 5:  # Check if the team is full (more than or equal to 5 members)
             messages.warning(request, "Team is full. Cannot join.")
         else:
             user_profile.team = team
