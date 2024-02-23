@@ -12,7 +12,7 @@ import random
 from django.contrib import messages
 
 
-
+@csrf_exempt
 def Signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -23,7 +23,7 @@ def Signup(request):
         form = SignUpForm()
     return render(request, 'base/signup_user.html', {'form': form})
 
-
+@csrf_exempt
 def login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
@@ -51,6 +51,7 @@ def jcteam(request):
     return render(request, 'base/team.html')
 
 @login_required(login_url='account')
+@csrf_exempt
 def create_team(request):
     sec_code = generate_random_string(8)
     users = request.user.userprofile
@@ -58,7 +59,9 @@ def create_team(request):
         team_name = request.POST.get('teamName')
         # storyline_name = random.choice(["story-1", "story-2"])  # Randomly select a storyline
         storyline_name="story-1"
-        team = Team.objects.create(name=team_name, sec_code=sec_code)
+        colors = ["red", "green"]
+        chosen_color = random.choice(colors)
+        team = Team.objects.create(name=team_name, sec_code=sec_code,color=chosen_color)
         storyline = Storyline.objects.get(name=storyline_name)
         if storyline_name == "story-1":
             clue_id = 1
@@ -80,6 +83,7 @@ def create_team(request):
 from django.contrib import messages
 
 @login_required(login_url='account')
+@csrf_exempt
 def join_team(request):
     user_profile = request.user.userprofile
 
@@ -164,12 +168,9 @@ def team_details(request):
     return render(request, 'base/team_details.html',context)
 @login_required(login_url='account')
 def tan_exp(request):
-    story=request.user.userprofile.team.storyline.name
-    if (story == "story-1"):
-        color="red"
-    else:
-        color="green"
-    context={'color':color}
+    team=request.user.userprofile.team
+    chosen_color=team.color
+    context={'color': chosen_color}
     return render(request, 'base/tan.html', context)
 
 import json

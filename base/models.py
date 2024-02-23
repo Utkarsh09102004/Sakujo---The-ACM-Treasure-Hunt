@@ -7,6 +7,7 @@ class Team(models.Model):
     sec_code = models.CharField(max_length=8)
     storyline = models.ForeignKey('Storyline', on_delete=models.SET_NULL, null=True, blank=True)
     status = models.CharField(max_length=10, blank=True, null=True)
+    color=models.CharField(default='red', null=True, blank=True)
     # minigames = models.ManyToManyField('Minigame', related_name='teams')
     hangman= models.TextField(default = "not reached" ,null=True, blank=True)
     summon = models.TextField(default = "not reached" ,null=True, blank=True)
