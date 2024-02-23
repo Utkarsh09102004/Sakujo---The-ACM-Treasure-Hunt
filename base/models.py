@@ -25,6 +25,7 @@ class UserProfile(models.Model):
     branch = models.CharField(max_length=100)
     team = models.ForeignKey(Team, on_delete=models.SET_NULL, null=True, blank=True)
 
+
     def __str__(self):
         return self.user.username  # Change to return the full name
 
@@ -39,6 +40,7 @@ class Clue(models.Model):
     # minigame = models.ForeignKey("Minigame", on_delete=models.SET_NULL, null=True, blank=True)
     code=models.CharField(max_length=10)
     storyline = models.ForeignKey('Storyline', on_delete=models.SET_NULL, null=True, blank=True)
+    character=models.CharField(null=True,blank=True);
 
     def __str__(self):
         return self.name
