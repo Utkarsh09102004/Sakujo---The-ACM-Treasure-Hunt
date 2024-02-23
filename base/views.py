@@ -279,7 +279,7 @@ def history(request):
     prim = clue.id
 
     if prim <= 7:
-        clues = Clue.objects.filter(id__lt=prim)
+        clues = Clue.objects.filter(id__lt=7)
         for clue in clues:
             print(clue.id)
     else:

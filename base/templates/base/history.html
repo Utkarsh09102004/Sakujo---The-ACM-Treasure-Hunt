@@ -197,6 +197,10 @@
     .section {
         margin-block: 1rem 2rem;
     }
+    .char {
+        color:white;
+
+    }
 </style>
 </head>
 <body>
@@ -212,10 +216,13 @@
             <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">
     {% for clue in clues %}
+
       <div class="carousel-item {% if forloop.first %}active{% endif %}">
         <div class="cluecontent">
+            <p class="char">{{clue.character}}</p>
           <p>{{ clue.description }}</p>
           <p>{{ clue.location }}</p>
+
         </div>
       </div>
     {% endfor %}
