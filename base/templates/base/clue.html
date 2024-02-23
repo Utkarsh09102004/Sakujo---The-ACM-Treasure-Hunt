@@ -296,9 +296,17 @@
                 xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
             },
             success: function (response) {
+                if (response.redirect === null) {
+                    alert('wrong qr');
+                    console.log('hello');
+                } else {
+
+
+                console.log(response.redirect);
                 // Handle success response from backend
                 window.location.href = response.redirect;
-                console.log(response);
+                console.log(response.redirect);
+                 }
             },
             error: function (xhr, status, error) {
                 // Handle error response

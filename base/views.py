@@ -150,6 +150,8 @@ def clue_render(request):
             team.current_clue = deClue
             team.save()
             return JsonResponse({'redirect': '/clue/'})
+        else:
+            return JsonResponse({'redirect': None})
 
     context = {'clue':clues}
     return render(request, 'base/clue.html', context)
