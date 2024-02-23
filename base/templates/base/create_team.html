@@ -5,18 +5,131 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Title</title>
-    <link rel="stylesheet" href="{% static 'css/createteam.css' %}">
 </head>
+<style>
+    @font-face {
+            font-family: "FiraCode-Retina";
+            src: url("{% static 'fonts/Death Note.ttf' %}") format("truetype");
+        }
+        @font-face {
+            font-family: "logo";
+            src: url("{% static 'fonts/CloisterBlack.ttf' %}") format("truetype");
+        }
+        @font-face {
+            font-family: "death";
+            src: url(" {% static 'fonts/death-font.ttf' %}") format("truetype");
+        }
+        @font-face {
+            font-family: "bloodcrow";
+            src: url("{% static 'fonts/bloodcrow.ttf' %}") format("truetype");
+        }
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        p,h1{
+	        color:#DDDFE1;
+        }
+        .container{
+            background: url("{% static 'img/image 23.png' %}"), lightgray 50% / cover no-repeat;
+            background-color: black;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+            height: 100vh;
+        }
+        .logo{
+	        margin:0 auto;
+        	width: 90%;
+	        font-family: "logo";
+	        justify-content: space-between;
+    	    display: flex;
+        }
+        .title{
+    	    margin-top: 0.3em;
+	        font-family: "bloodcrow";
+    	    font-size: 2.5em;
+        }
+        .quote{
+            width: 100%;
+        	font-family: "FiraCode-Retina";
+        	display: flex;
+        	height: 35%;
+	        align-items: center;
+        }
+        .quote h1{
+        	margin: 0;
+	        text-align: center;
+    	    font-size: 1.5em;
+        	font-weight: 400;
+        }
+        .det{
+	        margin: 0;
+    	    width: 90%;
+    	    font-family: "FiraCode-Retina";
+    	    font-size: 1.25em;
+        	font-weight: 400;
+        }
+        .form{
+	        margin-top: 1.5625em;
+        	display: flex;
+    	    justify-content: center;
+    	    width: 90%;
+        }
+        .formm{
+    	    width: 100%;
+	        display: flex;
+        	flex-direction: column;
+        }
+        .custom-label {
+        	margin:0;
+        	font-family: "death";
+        	color:#86767F;
+        }
+        .custom-input{
+        	background: radial-gradient(ellipse, rgba(164,160,170,0.8),rgba(164,160,170,0));
+        	width: 98%;
+        	height: 1.75em;
+        	text-align: center;
+        	border: 0;
+        	border-radius: 5px;
+        	font-family: "FiraCode-Retina";
+           color: #DDDFE1;
+            font-size: 1.5625em;
+        }
+        .btn{
+	        background: radial-gradient(ellipse, rgba(164,160,170,0.8),rgba(164,160,170,0));
+            width:4em;
+            height:2em;
+            border:0px;
+            border-radius:5px;
+            color:#DDDFE1;
+            font-family: "FiraCode-Retina";
+            font-size:1.5em;
+	        margin-top: 0.75em;
+            align-self: center;
+        }
+</style>
 <body>
     <div class="container">
-        
-        <!-- <form method="post">
-            {% csrf_token %}
-            <label for="teamName">Enter Team Name</label><br>
-            <input type="text" id="teamName" name="teamName">
-                <p>{{ sec_code }}</p>
-            <button type="submit">Submit</button>
-        </form> -->
+        <div class="logo">
+            <p>ACM <br> thapar</p>
+            <h1 class="title">SAKUJO</h1>
+            <p>Eclipse <br> phase-1</p>
+        </div>
+        <div class="quote">
+            <h1>"BEING ALONE IS BETTER THAN BEING WITH THE WRONG PERSON"</h1>
+        </div>
+        <h1 class="det">TEAM DETAILS</h1>
+        <div class="form">
+            <form method="post" class="formm">
+                {% csrf_token %}
+                <label for="teamName" class="custom-label">Team Name</label>
+                <input type="text" id="teamName" name="teamName" class="custom-input">
+                <button class="btn" type="submit">Submit</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>

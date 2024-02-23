@@ -18,7 +18,8 @@ urlpatterns = [
     path('bet-followup/', betpage,name='kataa'),
     path('center-game/', centerGame , name='center-game'),
     path('hangman/', hangman, name='hangman'),
-    path('history/', history, name='history')
+    path('history/', history, name='history'),
+    path('loyalty/',loyalty, name='loyal')
 
 ]
 if settings.DEBUG:

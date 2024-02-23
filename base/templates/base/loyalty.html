@@ -124,51 +124,17 @@
                 UH HO!
             </h1>
             <p>
-                Remember, true strength comes with your team.
+                Your loyalty shines!
                 <br><br>
-                While you wait for the next clue, think about how your friend could help you overcome the challenges of
-                life.
+                Sticking together was the right call, and you're rewarded with a head start. Listen closely, for your
+                next clue you have got a hint!
             </p>
         </div>
-        <div class="timer">
-            <div id="timer">
 
-            </div>
-            <p>Until Next Clue</p>
-        </div>
 
     </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var timerElement = document.getElementById("timer");
-            var duration = 5 * 60; // 5 minutes in seconds
 
-            function startTimer() {
-                var minutes, seconds;
-
-                var timerInterval = setInterval(function () {
-                    minutes = parseInt(duration / 60, 10);
-                    seconds = parseInt(duration % 60, 10);
-
-                    minutes = minutes < 10 ? "0" + minutes : minutes;
-                    seconds = seconds < 10 ? "0" + seconds : seconds;
-
-                    timerElement.textContent = minutes + ":" + seconds;
-
-                    if (--duration < 0) {
-                        clearInterval(timerInterval);
-                        timerElement.textContent = "Time's up!";
-                        window.location.href = '/clue/';
-
-                    }
-                }, 1000);
-            }
-
-            startTimer();
-        });
-
-    </script>
 
 </body>
 

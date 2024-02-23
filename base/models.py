@@ -10,6 +10,7 @@ class Team(models.Model):
     # minigames = models.ManyToManyField('Minigame', related_name='teams')
     hangman= models.TextField(default = "not reached" ,null=True, blank=True)
     summon = models.TextField(default = "not reached" ,null=True, blank=True)
+    betrayal=models.TextField(default = "not reached" ,null=True, blank=True)
 
 
     def __str__(self):

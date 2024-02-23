@@ -166,7 +166,7 @@
 			<div id="keyboard"></div>
 		</div>
 	</div>
-
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script>
 	document.addEventListener('DOMContentLoaded', function () {
     const words = ["ryuk"];
@@ -195,6 +195,7 @@
     if (guessedWord === word) {
         message.textContent = 'Congratulations! You guessed the word!';
         keyboard.disabled = true;
+		sendSuccessRequest();
     }
 }
 

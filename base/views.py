@@ -112,6 +112,10 @@ def clue_render(request):
         if (team.hangman == 'reached'):
             return redirect('hangman')
 
+    if (clues.id == 6):
+        if (team.summon == 'reached'):
+            return redirect('betrayal')
+
     if request.method == 'POST':
         deCode = request.POST.get('decodedData')
         print(deCode)
@@ -127,12 +131,11 @@ def clue_render(request):
             return JsonResponse({'redirect': '/hangman/'})
 
 
-        # elif (clues.id == 2 and Minigame.objects.get(name='Summon').description == "reached"):
-        #     print('hello')
-        #     return redirect('center-game')
 
         if (clues.id == 6 and deCode == 'betrayal' ):
-            print('chal lode')
+            team.betrayal = 'reached'
+            team.save()
+
             return JsonResponse({'redirect': '/bet-game/'})
 
         if (clues.id == 7 and deCode == "final"):
@@ -190,11 +193,34 @@ def betrayal(request):
             next= Clue.objects.filter(id=7).first()
             teams.current_clue= next
             teams.save()
-            return JsonResponse({'redirect': '/bet-game/'})
+            return redirect('kataa')
+
+        elif(status=='loyalty'):
+            return redirect('loyal');
 
         else:
-            return redirect('clue');
+            return redirect('kataa')
     return render(request, 'base/betrayal.html')
+
+def loyalty(request):
+    teams = request.user.userprofile.team
+    status = teams.status
+    if status is None:
+        teams.status = 'loyalty'
+        teams.save()
+        next = Clue.objects.filter(id=7).first()
+        teams.current_clue = next
+        teams.save()
+        return render(request, 'base/loyalty.html')
+
+    elif (status == 'betrayal'):
+        return redirect('kataa')
+
+    else:
+        return render(request, 'base/loyalty.html')
+
+
+    return render(request, 'base/loyalty.html')
 
 @csrf_exempt
 def centerGame(request):
@@ -226,7 +252,7 @@ def betpage(request):
     status = teams.status
     context = {'status':status}
     return render(request, 'base/bet-followup.html', context)
-
+@csrf_exempt
 def hangman(request):
     teams = request.user.userprofile.team
     clues = teams.current_clue

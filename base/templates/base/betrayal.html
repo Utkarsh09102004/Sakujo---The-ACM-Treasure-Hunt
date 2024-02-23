@@ -1,67 +1,199 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dropdown Form</title>
-<style>
-  /* Style the dropdown button */
-  .dropbtn {
-    background-color: #4CAF50;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dropdown Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "FiraCode-Retina", sans-serif;
+        }
 
-  /* The container <div> - needed to position the dropdown content */
-  .dropdown {
-    position: relative;
-    display: inline-block;
-  }
+        @font-face {
+            font-family: "FiraCode-Retina";
+            src: url("{% static 'fonts/Death Note.ttf' %} ") format("truetype");
+        }
 
-  /* Dropdown Content (Hidden by Default) */
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    padding: 12px 16px;
-    z-index: 1;
-  }
+        @font-face {
+            font-family: "logo";
 
-  /* Show the dropdown menu on hover */
-  .dropdown:hover .dropdown-content {
-    display: block;
-  }
-</style>
+            src: url("{% static 'fonts/CloisterBlack.ttf' %}") format("truetype");
+        }
+
+        @font-face {
+            font-family: "death";
+
+            src: url("{% static 'fonts/death-font.ttf' %}") format("truetype");
+        }
+
+        @font-face {
+            font-family: "blood";
+
+            src: url("{% static 'fonts/bloodcrow.ttf' %}") format("truetype");
+        }
+
+        /* style.css file */
+        .main {
+            height: 100vh;
+            width: 100%;
+            overflow: scroll;
+            background: url("{% static 'img/image 23.png' %}"),
+            lightgray 50% / cover no-repeat;
+            background-color: black;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            color: white;
+            min-height: 10vh;
+        }
+
+        .navbar>img {
+            height: 2.5rem;
+        }
+
+        /* Style the dropdown button */
+        .dropbtn {
+            background: radial-gradient(81.25% 81.25% at 50% 50%, rgba(164, 160, 170, 0.80) 0%, rgba(164, 160, 170, 0.00) 100%);
+            border-radius: 0.625rem;
+            width: 200px;
+            margin: 0 auto;
+            color: white;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+        }
+
+        /* The container <div> - needed to position the dropdown content */
+        .dropdown {
+            margin-block: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+        }
+
+        /* Dropdown Content (Hidden by Default) */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: transparent;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            padding: 12px 16px;
+            width: 100%;
+            z-index: 1;
+        }
+
+        .dropdown-content form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .dropdown-content input {
+            background: radial-gradient(81.25% 81.25% at 50% 50%, rgba(164, 160, 170, 0.48) 0%, rgba(164, 160, 170, 0.00) 100%);
+            border-radius: 0.625rem 0.3125rem 0.3125rem 0.625rem;
+            border: none;
+            height: 3rem;
+            width: 16rem;
+            margin: 0 auto;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .dropdown-content button {
+            background: radial-gradient(81.25% 81.25% at 50% 50%, rgba(164, 160, 170, 0.80) 0%, rgba(164, 160, 170, 0.00) 100%);
+            border-radius: 0.625rem;
+            border: none;
+            padding: 0.75rem 3.6875rem 0.6875rem 3.8125rem;
+
+        }
+
+        /* Show the dropdown menu on hover */
+        /*.dropdown:hover .dropdown-content {*/
+        /*    display: block;*/
+        /*}*/
+
+        .content h1 {
+            color: #B5021E;
+            font-size: 3rem;
+            text-align: center;
+            margin-block: 3rem;
+        }
+
+        .content p {
+            color: white;
+            font-size: 1rem;
+            text-align: center;
+            font-family: sans-serif;
+            font-weight: 300;
+        }
+    </style>
 </head>
+
 <body>
+    <div class="main">
+        <div class="navbar">
+            <img src="{% static 'img/acm thapar.png' %}" alt="">
+            <h2>SAKUJA</h2>
+            <img src="{% static 'img/acm thapar2.png' %}" alt="">
+        </div>
 
-<div class="dropdown">
-  <button onclick="toggleForm()" class="dropbtn">Open Form</button>
-  <div id="myForm" class="dropdown-content">
-    <form method="post">
-      {% csrf_token %}
-      <!-- Your form field for name -->
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name"><br><br>
-      <input type="submit" value="Submit">
-    </form>
-  </div>
-</div>
+        <div class="content">
+            <h1>
+                UH HO!
+            </h1>
+            <p>
+                Two paths lie ahead. <br><br>
+                One's quicker, but it means leaving a friend back here.<br><br>
+                The other's longer, but you all stick together. Do you zoom ahead and leave someone behind, or take it
+                slow and make sure everyone's safe? This choice ain't easy, pick wisely, adventurer!<br><br>
+                Give name of teammate you want to leave behind!
+            </p>
+        </div>
+        <div class="dropdown">
+            <button onclick="toggleForm()" class="dropbtn" id="dropbtn">I WANT TO BETRAY</button>
+            <button class="dropbtn" id="dropbtn2">I DON'T WANT TO BETRAY</button>
+            <div id="myForm" class="dropdown-content">
+                <form method="post" action="{% url 'kataa' %}">
+                    {% csrf_token %}
+                    <!-- Your form field for name -->
 
-<script>
-function toggleForm() {
-  var form = document.getElementById("myForm");
-  if (form.style.display === "none" || form.style.display === "") {
-    form.style.display = "block";
-  } else {
-    form.style.display = "none";
-  }
-}
-</script>
+                    <input type="text" id="name" name="name"><br><br>
+                    <button type="submit" value="Submit">SAKUJO</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleForm() {
+            var form = document.getElementById("myForm");
+            var button = document.getElementById("dropbtn");
+            var button2 = document.getElementById("dropbtn2");
+            if (form.style.display === "none" || form.style.display === "") {
+                form.style.display = "block";
+                button.style.display = "none";
+                button2.style.display = "none";
+
+            } else {
+                form.style.display = "none";
+            }
+        }
+    </script>
 
 </body>
+
 </html>
