@@ -182,7 +182,7 @@ def final(request):
         data = json.loads(request.body)
         success = data.get('success', False)  # Assuming you're sending a JSON object with a key 'success'
         if success:
-            print('yay!')
+            return redirect('csed')
 
     return render(request, 'base/name_game.html')
 @csrf_exempt
@@ -286,4 +286,7 @@ def history(request):
         clues = Clue.objects.filter(id__gt=7, id__lt=prim)
 
     return render(request, 'base/history.html', {'clues': clues})
+
+def csed(request):
+    return render(request, 'base/csed.html')
 

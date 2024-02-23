@@ -19,7 +19,8 @@ urlpatterns = [
     path('center-game/', centerGame , name='center-game'),
     path('hangman/', hangman, name='hangman'),
     path('history/', history, name='history'),
-    path('loyalty/',loyalty, name='loyal')
+    path('loyalty/',loyalty, name='loyal'),
+    path('csed/',csed, name='csed')
 
 ]
 if settings.DEBUG:

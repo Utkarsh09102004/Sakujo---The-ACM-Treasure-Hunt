@@ -101,6 +101,19 @@
             margin-top: 10px;
             font-weight: bold;
         }
+        button {
+            padding: 0.6875rem 1.8125rem 0.75rem 1.8125rem;
+            font-size: 1.5em;
+            color: white;
+            background: radial-gradient(81.25% 81.25% at 50% 50%, rgba(164, 160, 170, 0.80) 0%, rgba(164, 160, 170, 0.00) 100%);
+            border-radius: 0.625rem;
+            border: none;
+        }
+
+        button a {
+            text-decoration: none;
+    color: white;
+        }
 
         #newContainer {
             display: flex;
@@ -136,7 +149,7 @@
             <div class="character" data-order="7" onclick="checkOrder(7)">愛</div>
             <div class="character" data-order="6" onclick="checkOrder(6)">美</div>
         </div>
-
+    <button><a href="{% url 'history' %}">History</a></button>
 
 
     </div>
