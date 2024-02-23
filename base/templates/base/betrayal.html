@@ -165,7 +165,7 @@
         </div>
         <div class="dropdown">
             <button onclick="toggleForm()" class="dropbtn" id="dropbtn">I WANT TO BETRAY</button>
-            <button class="dropbtn" id="dropbtn2">I DON'T WANT TO BETRAY</button>
+            <button class="dropbtn" id="dropbtn2"><a href="{% url 'loyal' %}"> I DON'T WANT TO BETRAY</a></button>
             <div id="myForm" class="dropdown-content">
                 <form method="post" action="{% url 'kataa' %}">
                     {% csrf_token %}
