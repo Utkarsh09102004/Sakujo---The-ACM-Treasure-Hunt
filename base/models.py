@@ -7,6 +7,9 @@ class Team(models.Model):
     sec_code = models.CharField(max_length=8)
     storyline = models.ForeignKey('Storyline', on_delete=models.SET_NULL, null=True, blank=True)
     status = models.CharField(max_length=10, blank=True, null=True)
+    # minigames = models.ManyToManyField('Minigame', related_name='teams')
+    hangman= models.TextField(default = "not reached" ,null=True, blank=True)
+    summon = models.TextField(default = "not reached" ,null=True, blank=True)
 
 
     def __str__(self):
@@ -31,7 +34,7 @@ class Clue(models.Model):
     description = models.TextField( null=True, blank=True)
     location=models.TextField( null=True, blank=True)
     hint = models.TextField( null=True, blank=True)
-    minigame = models.ForeignKey("Minigame", on_delete=models.SET_NULL, null=True, blank=True)
+    # minigame = models.ForeignKey("Minigame", on_delete=models.SET_NULL, null=True, blank=True)
     code=models.CharField(max_length=10)
     storyline = models.ForeignKey('Storyline', on_delete=models.SET_NULL, null=True, blank=True)
 
@@ -63,6 +66,6 @@ from django.db import models
 #         return f"{self.team.name} - {self.get_status_display()}"
 
 
-class Minigame(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.TextField()
+# class Minigame(models.Model):
+#     name = models.CharField(max_length=100)
+#     description = models.TextField()

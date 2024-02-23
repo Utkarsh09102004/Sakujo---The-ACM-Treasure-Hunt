@@ -16,7 +16,9 @@ urlpatterns = [
     path('final/', final, name='final'),
     path('bet-game/', betrayal, name='betrayal'),
     path('bet-followup/', betpage,name='kataa'),
-    path('center-game/', centerGame , name='center-game')
+    path('center-game/', centerGame , name='center-game'),
+    path('hangman/', hangman, name='hangman'),
+    path('history/', history, name='history')
 
 ]
 if settings.DEBUG:

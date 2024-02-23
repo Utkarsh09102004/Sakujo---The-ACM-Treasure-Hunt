@@ -1,0 +1,289 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>TeamDetails</title>
+	<style>
+		@font-face {
+			font-family: "FiraCode-Retina";
+			src: url("{% static 'fonts/Death Note.ttf' %} ") format("truetype");
+		}
+
+		@font-face {
+			font-family: "logo";
+
+			src: url("{% static 'fonts/CloisterBlack.ttf' %}") format("truetype");
+		}
+
+		@font-face {
+			font-family: "death";
+
+			src: url("{% static 'fonts/death-font.ttf' %}") format("truetype");
+		}
+
+		@font-face {
+			font-family: "blood";
+
+			src: url("{% static 'fonts/bloodcrow.ttf' %}") format("truetype");
+		}
+
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: "FiraCode-Retina", sans-serif;
+		}
+
+		/* style.css file */
+		.main {
+			height: 100vh;
+			width: 100%;
+			overflow: scroll;
+			background: url("{% static 'img/image 23.png' %}"),
+			lightgray 50% / cover no-repeat;
+			background-color: black;
+		}
+
+		.navbar {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 0 5%;
+			color: white;
+			min-height: 10vh;
+		}
+
+		.navbar>img {
+			height: 2.5rem;
+		}
+
+		.container {
+			text-align: center;
+		}
+
+		.container h1 {
+			margin-bottom: 20px;
+			color: white;
+		}
+
+		#word-display {
+			font-size: 50px;
+			margin-bottom: 20px;
+			color: #ffffff;
+
+		}
+
+		.letter {
+			font-family: "Blood";
+			font-size: clamp(0.75rem, 1.5vw, 1rem);
+			background: radial-gradient(50% 50% at 50% 50%, rgba(164, 160, 170, 0.32) 0%, rgba(164, 160, 170, 0.10) 100%);
+			display: flex;
+			border-radius: 0.1945rem;
+			justify-content: center;
+			align-items: center;
+			border: none;
+			padding: 10px 10px;
+			color: rgba(255, 255, 255, 0.885);
+
+		}
+
+		#word-display span {
+			display: inline-block;
+			font-size: 3.5rem;
+			width: 50px;
+			/* Adjust as needed */
+		}
+
+		/* Add margin between underscore placeholders */
+		#word-display .placeholder {
+			margin-right: 5px;
+			/* Adjust as needed */
+		}
+
+		.row {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 5px;
+		}
+
+		#keyboard {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 10px;
+		}
+
+		#guess-input {
+			margin-bottom: 10px;
+			color: white;
+		}
+
+		#guess-button {
+			margin-bottom: 10px;
+			color: white;
+		}
+
+		#message {
+			margin-top: 20px;
+			font-weight: bold;
+			color: white;
+			position: relative;
+			top: 100px;
+			font-size: 2rem;
+			z-index: 2;
+		}
+
+		.hangman {
+			background: url("{% static 'img/deathnote-book.png' %}");
+			background-size: cover;
+			height: 310px;
+			width: 200px;
+			margin: 50px auto;
+
+		}
+	</style>
+</head>
+
+<body>
+	<div class="main">
+		<div class="navbar">
+			<img src="{% static 'img/acm thapar.png' %}" alt="">
+			<h2>SAKUJA</h2>
+			<img src="{% static 'img/acm thapar2.png' %}" alt="">
+		</div>
+		<div class="container">
+
+			<div id="word-display"></div>
+			<div class="hangman">
+				<div id="message"></div>
+			</div>
+			<div id="guesses-left">Guesses Left: <span id="mistakes">6</span></div>
+
+			<div id="keyboard"></div>
+		</div>
+	</div>
+
+	<script>
+	document.addEventListener('DOMContentLoaded', function () {
+    const words = ["ryuk"];
+    let word = words[Math.floor(Math.random() * words.length)];
+    let guessedLetters = [];
+    let mistakes = 0;
+    let bitwise = "ACM Lund society";
+    let hint = '';
+
+    const wordDisplay = document.getElementById('word-display');
+    const guessesLeft = document.getElementById('mistakes');
+    const keyboard = document.getElementById('keyboard');
+    const message = document.getElementById('message');
+
+    function displayWord() {
+        wordDisplay.innerHTML = ''; // Clear previous display
+        for (let letter of word) {
+            const span = document.createElement('span');
+            span.textContent = guessedLetters.includes(letter) ? letter : '_';
+            span.className = 'character';
+            wordDisplay.appendChild(span);
+        }
+    }
+	function checkWord() {
+    const guessedWord = guessedLetters.join('');
+    if (guessedWord === word) {
+        message.textContent = 'Congratulations! You guessed the word!';
+        keyboard.disabled = true;
+    }
+}
+
+
+    function checkGuess(guess) {
+        guessedLetters.push(guess);
+        if (!word.includes(guess)) {
+            mistakes++;
+            guessesLeft.textContent = 6 - mistakes;
+            if (mistakes >= 6) {
+                // If the user fails, reset the game
+                resetGame();
+                return;
+            }
+            if (bitwise.length > 0) {
+                const portionLength = Math.ceil(bitwise.length / 6); // Calculate the length of each portion
+			const portion = bitwise.substring(0, portionLength); // Extract the portion
+			hint += portion; // Append the portion to the hint
+			message.textContent = `${hint}`;
+			bitwise = bitwise.substring(portionLength);
+            }
+        }
+        displayWord();
+        if (word.split('').every(letter => guessedLetters.includes(letter))) {
+            message.textContent = '';
+            keyboard.disabled = true;
+
+        }
+		checkWord();
+    }
+
+    function resetGame() {
+        // Clear guessed letters, reset mistake count, and enable keyboard buttons
+        guessedLetters = [];
+        mistakes = 0;
+        guessesLeft.textContent = 6;
+        message.textContent = '';
+        keyboard.disabled = false;
+        displayWord();
+    }
+
+    function createKeyboard() {
+        const row1 = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'];
+        const row2 = ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'];
+        const row3 = ['Z', 'X', 'C', 'V', 'B', 'N', 'M'];
+
+        const rows = [row1, row2, row3];
+
+        rows.forEach(rowArray => {
+            const rowDiv = document.createElement('div');
+            rowDiv.classList.add('row');
+            rowArray.forEach(letter => {
+                const button = document.createElement('button');
+                button.textContent = letter;
+                button.className = 'letter';
+                button.addEventListener('click', function () {
+                    checkGuess(letter.toLowerCase());
+                    this.disabled = true;
+                });
+                rowDiv.appendChild(button);
+            });
+            keyboard.appendChild(rowDiv);
+        });
+    }
+	function sendSuccessRequest() {
+  // Send a POST request to the backend
+  $.ajax({
+    type: "POST",
+    url: "/hangman/", // Change the URL to your backend endpoint
+    data: { success: true },
+    success: function(response) {
+      // Handle success response from the backend
+      window.location.href = response.redirect;
+      console.log(response);
+    },
+    error: function(xhr, status, error) {
+      // Handle error response
+      console.error(xhr.responseText);
+    }
+  });
+}
+
+    createKeyboard();
+    displayWord();
+});
+
+
+
+	</script>
+</body>
+
+</html>

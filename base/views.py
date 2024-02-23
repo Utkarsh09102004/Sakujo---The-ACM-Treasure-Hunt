@@ -104,9 +104,33 @@ def clue_render(request):
     clues=team.current_clue
     print(clues.id)
 
+    if (clues.id == 2 ):
+        if (team.summon == 'reached'):
+            return redirect('center-game')
+
+    if (clues.id == 5):
+        if (team.hangman == 'reached'):
+            return redirect('hangman')
+
     if request.method == 'POST':
         deCode = request.POST.get('decodedData')
         print(deCode)
+        if (clues.id == 2 and deCode == "summon"):
+
+            team.summon = 'reached'
+            team.save()
+            return JsonResponse({'redirect': '/center-game/'})
+        if (clues.id == 5 and deCode == "hangman"):
+
+            team.hangman = 'reached'
+            team.save()
+            return JsonResponse({'redirect': '/hangman/'})
+
+
+        # elif (clues.id == 2 and Minigame.objects.get(name='Summon').description == "reached"):
+        #     print('hello')
+        #     return redirect('center-game')
+
         if (clues.id == 6 and deCode == 'betrayal' ):
             print('chal lode')
             return JsonResponse({'redirect': '/bet-game/'})
@@ -178,16 +202,22 @@ def centerGame(request):
     clues = team.current_clue
     newid = clues.id + 1
     newClue =Clue.objects.filter(id=newid).first()
+
+
+    if (team.summon=='solved'):
+        return redirect('clue')
+
     if (request.method=='POST'):
         deCode = request.POST.get('success')
 
-
-
         # Assuming you're sending a JSON object with a key 'success'
         if deCode:
+            team.summon = 'solved'
+            team.save()
             team.current_clue = newClue
             team.save()
             return JsonResponse({'redirect': '/clue/'})
+
 
     return render(request, 'base/center_game.html')
 
@@ -196,3 +226,35 @@ def betpage(request):
     status = teams.status
     context = {'status':status}
     return render(request, 'base/bet-followup.html', context)
+
+def hangman(request):
+    teams = request.user.userprofile.team
+    clues = teams.current_clue
+    newid = clues.id + 1
+    newClue = Clue.objects.filter(id=newid).first()
+    if (request.method=='POST'):
+        deCode = request.POST.get('success')
+
+        # Assuming you're sending a JSON object with a key 'success'
+        if deCode:
+            teams.hangman = 'solved'
+            teams.save()
+            teams.current_clue = newClue
+            teams.save()
+            return JsonResponse({'redirect': '/clue/'})
+    return render(request, 'base/hangman.html')
+
+
+def history(request):
+    clue = request.user.userprofile.team.current_clue
+    prim = clue.id
+
+    if prim <= 7:
+        clues = Clue.objects.filter(id__lt=prim)
+        for clue in clues:
+            print(clue.id)
+    else:
+        clues = Clue.objects.filter(id__gt=7, id__lt=prim)
+
+    return render(request, 'base/history.html', {'clues': clues})
+
