@@ -122,7 +122,7 @@ def clue_render(request):
 
     if request.method == 'POST':
         deCode = request.POST.get('decodedData')
-        print(deCode)
+        print(deCode + 'hello')
         if (clues.id == 2 and deCode == "summon"):
 
             team.summon = 'reached'

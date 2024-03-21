@@ -87,9 +87,15 @@ WSGI_APPLICATION = 'Hunt.wsgi.application'
 
 
 DATABASES = {
-    "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'Treasure',
+        'USER': 'postgres',
+        'PASSWORD': 'Utkarsh',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

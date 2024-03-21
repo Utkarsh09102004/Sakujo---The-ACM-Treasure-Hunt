@@ -297,6 +297,7 @@
             },
             success: function (response) {
                 if (response.redirect === null) {
+
                     alert('wrong qr');
                     console.log('hello');
                 } else {
@@ -309,8 +310,9 @@
                  }
             },
             error: function (xhr, status, error) {
+                console.log('hellozzz');
                 // Handle error response
-                console.error(xhr.responseText);
+                // console.error(xhr.responseText);
             }
         });
     }
